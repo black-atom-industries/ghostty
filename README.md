@@ -168,6 +168,41 @@ black-atom-core generate
 
 This will process all template files defined in `black-atom-adapter.json` and create the corresponding `.conf` files.
 
+### Development with Symlinks
+
+For theme development, it's more efficient to use symlinks rather than copying files. This allows you to see changes immediately after generating new theme files without having to copy them again:
+
+```bash
+# Create the Ghostty themes directory if it doesn't exist
+mkdir -p ~/.config/ghostty/themes
+
+# Create symlinks for all theme files
+find ~/repos/black-atom-industries/ghostty/themes -name "*.conf" -type f -exec ln -sf {} ~/.config/ghostty/themes/ \;
+```
+
+Alternatively, you can create symlinks for specific collections:
+
+```bash
+# JPN Collection
+ln -sf ~/repos/black-atom-industries/ghostty/themes/jpn/black-atom-jpn-koyo-hiru.conf ~/.config/ghostty/themes/
+ln -sf ~/repos/black-atom-industries/ghostty/themes/jpn/black-atom-jpn-koyo-yoru.conf ~/.config/ghostty/themes/
+ln -sf ~/repos/black-atom-industries/ghostty/themes/jpn/black-atom-jpn-tsuki-yoru.conf ~/.config/ghostty/themes/
+
+# Stations Collection
+ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations-engineering.conf ~/.config/ghostty/themes/
+ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations-operations.conf ~/.config/ghostty/themes/
+ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations-medical.conf ~/.config/ghostty/themes/
+ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations-research.conf ~/.config/ghostty/themes/
+
+# And so on for Terra and CRBN collections...
+```
+
+With symlinks in place, your workflow becomes:
+
+1. Make changes to templates
+2. Run `black-atom-core generate` 
+3. Reload Ghostty to see changes immediately
+
 ## Contributing
 
 Contributions are welcome! If you'd like to improve existing themes or add new features:
