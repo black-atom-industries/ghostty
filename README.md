@@ -61,31 +61,87 @@ cp themes/*/*.conf ~/.config/ghostty/themes/
 
 ## Usage
 
-### Setting a Theme
+Ghostty supports various ways to use themes. Below are the recommended methods for using Black Atom themes with Ghostty.
 
-In your `~/.config/ghostty/config` file, include one of the themes:
+### Method 1: Using the `theme` Configuration Option
 
+After installing the themes to your Ghostty themes directory, you can use the built-in `theme` option:
+
+```ini
+# In your ~/.config/ghostty/config file
+theme = black-atom-jpn-koyo-yoru
 ```
-# Include a Black Atom theme
+
+You can also specify different themes for light and dark mode:
+
+```ini
+# Use different themes based on system appearance
+theme = dark:black-atom-terra-fall-night,light:black-atom-terra-fall-day
+```
+
+> Don't forget to [reload your configuration](https://ghostty.org/docs/config#reloading-the-configuration) after changing the theme.
+
+### Method 2: Using the `include` Directive
+
+Alternatively, you can directly include a theme file:
+
+```ini
+# In your ~/.config/ghostty/config file
 include ~/.config/ghostty/themes/black-atom-jpn-koyo-yoru.conf
 ```
 
-### Switching Themes
+### Theme Installation
 
-To switch between themes, simply change the included theme file in your config and restart Ghostty:
+For Ghostty to find themes by name, they must be placed in one of these directories:
 
+1. `$XDG_CONFIG_HOME/ghostty/themes` (typically `~/.config/ghostty/themes`)
+2. `$PREFIX/share/ghostty/themes`
+
+```bash
+# Create the themes directory if it doesn't exist
+mkdir -p ~/.config/ghostty/themes
+
+# Copy the generated theme files
+cp themes/*/*.conf ~/.config/ghostty/themes/
 ```
-# Change to a different theme
-include ~/.config/ghostty/themes/black-atom-terra-fall-night.conf
+
+### Listing Available Themes
+
+To see all available themes including the Black Atom themes:
+
+```bash
+ghostty +list-themes
 ```
 
 ## Development
 
+### Theme Format
+
+Ghostty themes are simple configuration files that set color options. Black Atom themes define the following properties:
+
+```ini
+# Basic terminal colors
+background = #value
+foreground = #value
+cursor-color = #value
+cursor-text = #value
+selection-background = #value
+selection-foreground = #value
+
+# 16-color palette
+palette = 0=#value  # black
+palette = 1=#value  # dark red
+...
+palette = 15=#value # white
+```
+
+For more information on Ghostty themes, see the [official documentation](https://ghostty.org/docs/features/theme).
+
 ### Template Structure
 
-The theme templates use the Eta template syntax to inject theme values:
+Our templates use the Eta template engine syntax to inject theme values from the Black Atom core definitions:
 
-```
+```ini
 background = <%= theme.ui.bg.default %>
 foreground = <%= theme.ui.fg.default %>
 cursor-color = <%= theme.ui.fg.accent %>
@@ -94,18 +150,23 @@ cursor-color = <%= theme.ui.fg.accent %>
 
 ### Creating New Templates
 
+To create a new template:
+
 1. Create a `.template.conf` file in the appropriate collection directory
-2. Add the template to `black-atom-adapter.json`
-3. Generate the theme using the core CLI
+2. Use template variables to reference color values from the core definitions
+3. Add the template to `black-atom-adapter.json`
+4. Generate the theme using the core CLI
 
 ### Generating Themes
 
-To generate all themes from the templates:
+To generate all themes from the templates, run the `black-atom-core generate` command from the directory of this repository.
 
 ```bash
-cd /path/to/black-atom-core
+# Generate all themes
 black-atom-core generate
 ```
+
+This will process all template files defined in `black-atom-adapter.json` and create the corresponding `.conf` files.
 
 ## Contributing
 
