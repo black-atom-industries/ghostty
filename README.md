@@ -34,7 +34,7 @@ All themes are available in both dark and light variants.
 ### Prerequisites
 
 - [Ghostty](https://github.com/mitchellh/ghostty) terminal emulator
-- [Black Atom Core](https://github.com/black-atom-industries/core) (for generating themes)
+- [Black Atom Core](https://github.com/black-atom-industries/core) (for adapting themes)
 
 ### Setup
 
@@ -45,14 +45,14 @@ git clone https://github.com/black-atom-industries/ghostty.git
 cd ghostty
 ```
 
-2. Generate the theme files using Black Atom Core:
+2. Adapt the theme files using Black Atom Core:
 
 ```bash
 # From the core repository
-black-atom-core generate
+black-atom-core adapt
 ```
 
-3. Copy the generated `.conf` files to your Ghostty themes directory:
+3. Copy the adapted `.conf` files to your Ghostty themes directory:
 
 ```bash
 mkdir -p ~/.config/ghostty/themes
@@ -155,22 +155,22 @@ To create a new template:
 1. Create a `.template.conf` file in the appropriate collection directory
 2. Use template variables to reference color values from the core definitions
 3. Add the template to `black-atom-adapter.json`
-4. Generate the theme using the core CLI
+4. Adapt the theme using the core CLI
 
-### Generating Themes
+### Adapting Themes
 
-To generate all themes from the templates, run the `black-atom-core generate` command from the directory of this repository.
+To adapt all themes from the templates, run the `black-atom-core adapt` command from the directory of this repository.
 
 ```bash
-# Generate all themes
-black-atom-core generate
+# Adapt all themes
+black-atom-core adapt
 ```
 
 This will process all template files defined in `black-atom-adapter.json` and create the corresponding `.conf` files.
 
 ### Development with Symlinks
 
-For theme development, it's more efficient to use symlinks rather than copying files. This allows you to see changes immediately after generating new theme files without having to copy them again:
+For theme development, it's more efficient to use symlinks rather than copying files. This allows you to see changes immediately after adapting new theme files without having to copy them again:
 
 ```bash
 # Create the Ghostty themes directory if it doesn't exist
@@ -200,7 +200,7 @@ ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations
 With symlinks in place, your workflow becomes:
 
 1. Make changes to templates
-2. Run `black-atom-core generate` 
+2. Run `black-atom-core adapt` 
 3. Reload Ghostty to see changes immediately
 
 ## Contributing
