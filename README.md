@@ -55,8 +55,9 @@ black-atom-core adapt
 3. Copy the adapted `.conf` files to your Ghostty themes directory:
 
 ```bash
-mkdir -p ~/.config/ghostty/themes
-cp themes/*/*.conf ~/.config/ghostty/themes/
+COPY_PATH=~/.config/ghostty/themes
+mkdir -p $COPY_PATH
+cp themes/*/*.conf $COPY_PATH
 ```
 
 ## Usage
