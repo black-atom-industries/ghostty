@@ -14,16 +14,15 @@ This modular approach ensures consistent colors and styling across all supported
 
 ## Available Themes
 
-Black Atom includes multiple theme collections, each with its own distinct style:
+Black Atom includes multiple theme collections, each with dark and light variants:
 
-| Collection   | Themes                                                     | Description                   |
-| ------------ | ---------------------------------------------------------- | ----------------------------- |
-| **JPN**      | koyo-hiru, koyo-yoru, tsuki-yoru                           | Japanese-inspired themes      |
-| **Stations** | engineering, operations, medical, research                 | Space station-inspired themes |
-| **Terra**    | seasons (spring, summer, fall, winter) × time (day, night) | Earth season-inspired themes  |
-| **CRBN**     | null, supr                                                 | Minimalist carbon themes      |
-
-All themes are available in both dark and light variants.
+| Collection    | Description                   |
+| ------------- | ----------------------------- |
+| **Default**   | Core Black Atom themes        |
+| **JPN**       | Japanese-inspired themes      |
+| **MNML**      | Minimalist accent themes      |
+| **Stations**  | Space station-inspired themes |
+| **Terra**     | Earth season-inspired themes  |
 
 ## Installation
 
@@ -45,7 +44,7 @@ cd ghostty
 
 ```bash
 # From the core repository
-black-atom-core adapt
+black-atom-core generate
 ```
 
 3. Copy the adapted `.conf` files to your Ghostty themes directory:
@@ -112,6 +111,22 @@ ghostty +list-themes
 
 ## Development
 
+### Installing Black Atom Core CLI
+
+To generate themes, you need the Black Atom Core CLI installed:
+
+```bash
+# Clone and enter the core repository
+git clone https://github.com/black-atom-industries/core.git
+cd core
+
+# Compile and install the CLI
+deno task cli:compile
+deno task cli:install
+```
+
+This installs the `black-atom-core` binary to `/usr/local/bin`.
+
 ### Theme Format
 
 Ghostty themes are simple configuration files that set color options. Black Atom themes define the following properties:
@@ -156,11 +171,11 @@ To create a new template:
 
 ### Adapting Themes
 
-To adapt all themes from the templates, run the `black-atom-core adapt` command from the directory of this repository.
+To adapt all themes from the templates, run the `black-atom-core generate` command from the directory of this repository.
 
 ```bash
 # Adapt all themes
-black-atom-core adapt
+black-atom-core generate
 ```
 
 This will process all template files defined in `black-atom-adapter.json` and create the corresponding `.conf` files.
@@ -191,13 +206,13 @@ ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations
 ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations-medical.conf ~/.config/ghostty/themes/
 ln -sf ~/repos/black-atom-industries/ghostty/themes/stations/black-atom-stations-research.conf ~/.config/ghostty/themes/
 
-# And so on for Terra and CRBN collections...
+# And so on for Default, Terra, and MNML collections...
 ```
 
 With symlinks in place, your workflow becomes:
 
 1. Make changes to templates
-2. Run `black-atom-core adapt` 
+2. Run `black-atom-core generate` 
 3. Reload Ghostty to see changes immediately
 
 ## Contributing
